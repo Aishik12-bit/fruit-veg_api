@@ -11,12 +11,11 @@ CORS(app)
 model = tf.keras.models.load_model('cnn_model')
 
 # Use the loaded model for predictions or further training
-classes_list = ['apple', 'banana', 'beetroot', 'bell pepper', 'cabbage', 'capsicum', 'carrot', 'eggplant',
-                'peas', 'orange', 'pomegranate', 'pear', 'grapes', 'cauliflower', 'raddish', 'pineapple',
-                'lettuce', 'corn', 'soy beans',  'paprika', 'sweetpotato', 'lemon',  'onion',
-                'watermelon', 'potato', 'kiwi', 'ginger', 'chilli pepper', 'jalepeno', 'garlic',
-                'tomato', 'turnip', 'mango', 'sweetcorn', 'spinach', 'cucumber']
-
+classes_list = ['apple', 'banana', 'beetroot', 'bell pepper', 'cabbage', 'capsicum', 'carrot', 'cauliflower', 
+                'cilli pepper', 'corn', 'cucumber', 'eggplant', 'garlic', 'ginger', 'grapes', 'jalepeno', 
+                'kiwi', 'lemon', 'lettuc',  'mango', 'onion', 'orange',  'paprika', 
+                'pear', 'peas', 'pineapple','pomegranate', 'potato', 'raddish', 'soy beans', 'spinach', 
+                'sweetcorn', 'sweetpotato', 'tomato', 'turnip', 'watermelon']
 
 @app.route('/test', methods=['GET', 'POST'])
 def output():
