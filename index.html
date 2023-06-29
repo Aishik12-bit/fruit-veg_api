@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="eng">
+<head>
+    <title>Image Classifier (Fruits and Vegitables)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        h1 {
+            text-align:center;
+            font-size: 36px;
+            margin-bottom: 20px;
+            transform: translateY(-20px);
+            transition: transform 0.3s ease;
+            text-orientation: upright;
+        }
+
+        h1:hover {
+            transform: translateY(-25px);
+            text-shadow: 2px 2px 4px rgba(5, 15, 40, 0.2);
+        }
+
+
+        form {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .file-input {
+            display: inline-block;
+            background-color: #f5f5f5;
+            border: 1px solid #cccccc;
+            padding: 8px 12px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .file-input:hover {
+            background-color: #eaeaea;
+        }
+
+        .file-input input[type="file"] {
+            display: none;
+        }
+
+        .predict-btn {
+            display: inline-block;
+            background-color: #750e0e;
+            color: #fff;
+            border: none;
+            padding: 15px 30px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.2);
+            font-size: 18px;
+        }
+
+        .predict-btn:hover {
+            background-color: #15862a;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        }
+
+        .result-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+    <script>
+        // Preview the selected image and display the name
+        function previewImage(event) {
+            var reader = new FileReader();
+            var imagePreview = document.getElementById('image-preview');
+            var fileBox = document.getElementById('file-box');
+            var file = event.target.files[0];
+
+            reader.onload = function() {
+                imagePreview.src = reader.result;
+            }
+
+            reader.readAsDataURL(file);
+            fileBox.textContent = "Selected File: " + file.name;
+        }       
+
+    </script>
+</head>
+<body>
+    <h1>Image Classifier (Fruits or Vegitables)</h1>
+    <form action="/predict" method="POST" enctype="multipart/form-data">
+        <label class="file-input">
+            Choose File
+            <input type="file" name="image" accept="image/*" onchange="previewImage(event)">
+        </label>
+        <br>
+        <div id="file-box" style="border: 1px solid #ccc; padding: 10px; width: 300px; margin-top: 10px;"></div>
+        <br>
+        <img id="image-preview" src="#" alt="Selected Image" style="max-width: 300px; max-height: 300px; margin-top: 10px; display: none;">
+        <br>
+        <button class="predict-btn" type="submit">Predict</button>
+    </form>
+    
+    
+    {% if error %}
+        <p>{{ error }}</p>
+    {% endif %}
+    
+    {% if class_name  %}
+        <div class="result-container">
+            <h2>Prediction Result:</h2>
+            <p>Class: {{ class_name }}</p>
+        </div>
+    {% endif %}
